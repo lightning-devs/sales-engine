@@ -142,7 +142,8 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "sales-engine-bff:build"
+            "buildTarget": "sales-engine-bff:build",
+            "proxyConfig": "apps/sales-engine/proxy.config.json"
           }
         },
         "lint": {
