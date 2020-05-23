@@ -25,6 +25,9 @@
     "sales-engine-e2e": {
       "tags": [],
       "implicitDependencies": ["sales-engine"]
+    },
+    "sales-engine-bff": {
+      "tags": []
     }
   }
 }

@@ -109,6 +109,63 @@
           }
         }
       }
+    },
+    "sales-engine-bff": {
+      "root": "apps/sales-engine-bff",
+      "sourceRoot": "apps/sales-engine-bff/src",
+      "projectType": "application",
+      "prefix": "sales-engine-bff",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/sales-engine-bff",
+            "main": "apps/sales-engine-bff/src/main.ts",
+            "tsConfig": "apps/sales-engine-bff/tsconfig.app.json",
+            "assets": ["apps/sales-engine-bff/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/sales-engine-bff/src/environments/environment.ts",
+                  "with": "apps/sales-engine-bff/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "sales-engine-bff:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/sales-engine-bff/.eslintrc",
+            "tsConfig": [
+              "apps/sales-engine-bff/tsconfig.app.json",
+              "apps/sales-engine-bff/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/sales-engine-bff/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/sales-engine-bff/jest.config.js",
+            "tsConfig": "apps/sales-engine-bff/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
