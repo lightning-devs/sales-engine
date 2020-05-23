@@ -1,0 +1,183 @@
+{
+  "version": 1,
+  "projects": {
+    "sales-engine": {
+      "root": "apps/sales-engine",
+      "sourceRoot": "apps/sales-engine/src",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "options": {
+            "outputPath": "dist/apps/sales-engine",
+            "index": "apps/sales-engine/src/index.html",
+            "main": "apps/sales-engine/src/main.tsx",
+            "polyfills": "apps/sales-engine/src/polyfills.ts",
+            "tsConfig": "apps/sales-engine/tsconfig.app.json",
+            "assets": [
+              "apps/sales-engine/src/favicon.ico",
+              "apps/sales-engine/src/assets"
+            ],
+            "styles": ["apps/sales-engine/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/sales-engine/src/environments/environment.ts",
+                  "with": "apps/sales-engine/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "sales-engine:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "sales-engine:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/sales-engine/.eslintrc",
+            "tsConfig": [
+              "apps/sales-engine/tsconfig.app.json",
+              "apps/sales-engine/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/sales-engine/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/sales-engine/jest.config.js",
+            "tsConfig": "apps/sales-engine/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "sales-engine-e2e": {
+      "root": "apps/sales-engine-e2e",
+      "sourceRoot": "apps/sales-engine-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/sales-engine-e2e/cypress.json",
+            "tsConfig": "apps/sales-engine-e2e/tsconfig.e2e.json",
+            "devServerTarget": "sales-engine:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "sales-engine:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/sales-engine-e2e/.eslintrc",
+            "tsConfig": ["apps/sales-engine-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/sales-engine-e2e/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "schematics": {
+    "@nrwl/workspace": {
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/cypress": {
+      "cypress-project": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/react": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint",
+        "babel": true
+      },
+      "library": {
+        "style": "scss",
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      },
+      "component": {
+        "style": "scss"
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/web": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/node": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/nx-plugin": {
+      "plugin": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/nest": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/express": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "sales-engine"
+}
