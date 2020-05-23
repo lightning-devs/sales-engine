@@ -28,6 +28,9 @@
     },
     "sales-engine-bff": {
       "tags": []
+    },
+    "typing": {
+      "tags": []
     }
   }
 }

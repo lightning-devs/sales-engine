@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import { Product } from '@lightning/typing';
 
 import { AppService } from './app.service';
 
