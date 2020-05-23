@@ -5,6 +5,7 @@
   "scripts": {
     "nx": "nx",
     "start": "nx serve",
+    "start:bff": "nx serve sales-engine-bff",
     "build": "nx build",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
