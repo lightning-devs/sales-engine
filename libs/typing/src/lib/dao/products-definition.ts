@@ -5,6 +5,7 @@ export interface ProductsDefinition {
         [key: string]: {
             propertyPath?: string,
             queryPath?: string,
+            fieldBase?: string,
         }
     };
 }
