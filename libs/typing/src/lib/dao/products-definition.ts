@@ -1,5 +1,6 @@
 export interface ProductsDefinition {
-    queryPath: string;
+    queryPath?: string;
+    propertyPath?: string;
     fields: {
         [key: string]: {
             propertyPath?: string,
