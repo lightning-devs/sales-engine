@@ -27,8 +27,8 @@ export default class HTMLResolver {
                 const { fieldBase } = value;
                 let val = fieldBase || '';
 
-                val += fieldBase + value.hasOwnProperty('queryPath') ? item.querySelector(value.queryPath).getAttribute(value.propertyPath) : item.getAttribute(value.propertyPath);
-
+                val += value.hasOwnProperty('queryPath') ? item.querySelector(value.queryPath).getAttribute(value.propertyPath) : item.getAttribute(value.propertyPath);
+                
                 product[key] = val;
             });
 
