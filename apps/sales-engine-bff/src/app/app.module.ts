@@ -10,6 +10,8 @@ import { DataSourcesModule } from './modules/data-sources.module';
     DataSourcesModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService
+  ],
 })
 export class AppModule {}

@@ -1,9 +1,9 @@
 import { GuatiqueDriver } from './guatique.driver';
 import { MacroSistemasDriver } from './macrosistemas.driver';
 
-const drivers = [
-    GuatiqueDriver,
-    MacroSistemasDriver
-];
+const drivers = {
+    guatique: GuatiqueDriver,
+    macroSistemas: MacroSistemasDriver
+};
 
 export default drivers;

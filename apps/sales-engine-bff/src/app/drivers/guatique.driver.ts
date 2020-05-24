@@ -5,7 +5,7 @@ export const GuatiqueDriver: Driver = {
     name: 'Guatique',
     type: 'html',
     search: {
-        baseUrl: 'https://www.guatique.com/es/buscar/search:{ keyword }',
+        baseUrl: 'https://www.guatique.com/es/buscar/search:{keyword}',
         method: 'GET',
         requiredParams: ['keyword'],
     },

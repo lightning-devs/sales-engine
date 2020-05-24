@@ -3,8 +3,8 @@ import { Driver } from '@lightning/typing';
 export const MacroSistemasDriver: Driver = {
     id: 'macrosistemas',
     name: 'Macro Sistemas',
+    type: 'json',
     search: {
-        type: 'json',
         baseUrl: 'https://www.macrosistemas.com/component/virtuemart/',
         method:'POST',
         headers: {

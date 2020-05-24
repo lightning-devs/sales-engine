@@ -1,24 +1,26 @@
-import { Controller, Get, Post, Req, Res, Query } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { DataSourcesService } from '../services/data-sources.service';
-import { Response } from 'express';
 
 import drivers from '../drivers/';
 
 @Controller('dataSources')
 export class DataSourcesController {
 
-    constructor(private dataSourcesService: DataSourcesService) {}
+    constructor(private sourcesService: DataSourcesService) {}
 
     @Get()
     getAllDataSources() {
-        return drivers;
+        return Object.values(drivers);
     }
 
     @Get('search')
-    searchOnDataSources(@Res() response: Response,
-                        @Query('sources') sources: string[],
+    async searchOnDataSources(@Query('stores') stores: string,
                         @Query('keyword') keyword: string) {
-        
+        console.log(stores);
+        console.log(keyword);
+        const sources = stores.split(',');
+        const products = await this.sourcesService.searchByDataSources(sources, keyword);
+        return products;
     }
 
 }
