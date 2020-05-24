@@ -2,14 +2,10 @@ import { Driver } from '@lightning/typing';
 import { Product } from '@lightning/typing';
 import { parse } from 'node-html-parser';
 
-export interface Resolver {
-    resolve(driver: Driver, data: any): Product[];
-}
-
-export default class HTMLResolver implements Resolver {
-    resolve(driver: Driver, data: any) {
+export default class HTMLResolver {
+    static resolve = (driver: Driver) => (data: any) => {
         // parse the html data
-        const html = parse(data);
+        const html: any = parse(data);
 
         const { productsDefinition } = driver;
         const { queryPath, fields } = productsDefinition;
@@ -17,7 +13,7 @@ export default class HTMLResolver implements Resolver {
         const items = html.querySelectorAll(queryPath);
 
         const products: Product[] = items.map(item => {
-            const product:Product = {
+            const product: Product = {
                 name: '',
                 price: 0,
                 image: '',

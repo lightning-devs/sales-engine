@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ResolverService } from './resolver.services';
 import { Product } from '@lightning/typing';
-import { from } from 'rxjs';
 
 import drivers from '../drivers';
 

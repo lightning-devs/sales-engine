@@ -1,5 +1,5 @@
 import { Injectable, HttpService } from '@nestjs/common';
-import { Driver, Product } from '@lightning/typing';
+import { Driver } from '@lightning/typing';
 import interpolate from 'pupa';
 import resolvers from '../resolvers/';
 import { map, tap } from 'rxjs/operators';
@@ -7,7 +7,8 @@ import { map, tap } from 'rxjs/operators';
 @Injectable()
 export class ResolverService {
 
-    constructor(private httpService: HttpService) {}
+    constructor(private httpService: HttpService) {
+    }
 
     searchByDriver(driver: Driver, keyword: string) {
         const resolver = resolvers[driver.type];
@@ -24,8 +25,7 @@ export class ResolverService {
         }
         const response = this.httpService[httpMethod](...params);
         return response.pipe(
-          map(resolve),
-          tap(() => console.log('funciona esta webada'))
+            map((result: {data: any}) => resolve(result.data)),
         ).toPromise();
     }
 }
