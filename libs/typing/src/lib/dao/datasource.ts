@@ -9,7 +9,7 @@ export interface Product {
     price: number;
     image: string;
     link: string;
-    fields: Fields[];
+    fields?: Fields[];
 }
 
 export interface Fields {
