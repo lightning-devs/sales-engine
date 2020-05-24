@@ -21,6 +21,11 @@ export const GuatiqueDriver: Driver = {
             image: {
                 queryPath: '.prod_img .wrapImg2 .responsive-image',
                 propertyPath: 'data-src'
+            },
+            link: {
+                queryPath: '.JSproductName',
+                propertyPath: 'href',
+                fieldBase: 'https://www.guatique.com'
             }
         }
     }
