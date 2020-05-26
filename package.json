@@ -39,6 +39,7 @@
     "grommet": "^2.13.0",
     "grommet-icons": "^4.4.0",
     "grommet-styles": "^0.2.0",
+    "lodash": "^4.17.15",
     "node-html-parser": "^1.2.16",
     "pupa": "^2.0.1",
     "react": "16.12.0",

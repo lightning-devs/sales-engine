@@ -25,7 +25,8 @@ export class ResolverService {
         }
         const response = this.httpService[httpMethod](...params);
         return response.pipe(
-            map((result: {data: any}) => resolve(result.data)),
+            map((result: { data: any }) => resolve(result.data)),
+            map((products: any[]) => ({ products, store: driver.id }))
         ).toPromise();
     }
 }

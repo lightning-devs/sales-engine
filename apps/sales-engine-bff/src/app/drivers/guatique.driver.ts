@@ -13,18 +13,22 @@ export const GuatiqueDriver: Driver = {
         queryPath: '#JS_main_product_list .JSproductListItems .JS_product',
         fields: {
             name: {
-                propertyPath: 'name'
+                propertyPath: 'name',
+                getBy: 'attribute'
             },
             price: {
-                propertyPath: 'price'
+                propertyPath: 'price',
+                getBy: 'attribute'
             },
             image: {
                 queryPath: '.prod_img .wrapImg2 .responsive-image',
-                propertyPath: 'data-src'
+                propertyPath: 'data-src',
+                getBy: 'attribute'
             },
             link: {
                 queryPath: '.JSproductName',
                 propertyPath: 'href',
+                getBy: 'attribute',
                 fieldBase: 'https://www.guatique.com'
             }
         }
