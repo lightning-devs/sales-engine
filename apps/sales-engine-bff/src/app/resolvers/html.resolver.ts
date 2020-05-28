@@ -3,14 +3,27 @@ import { parse } from 'node-html-parser';
 import isEmpty from 'lodash/isEmpty';
 import compose from 'lodash/flow';
 import fp from 'lodash/fp';
+import getCleaner from 'get-clean-string';
 
-const getters = getBy => element => {
+const cleaner = getCleaner();
+
+const ownFunctions = {
+    appendStart: startString => currentValue => startString + currentValue,
+    appendEnd: finishString => currentValue => currentValue + finishString,
+    clean: currentValue => cleaner(currentValue),
+    select: queryPath => htmlElement => htmlElement.querySelector(queryPath),
+    selectAll: queryPath => htmlElement => htmlElement.querySelectorAll(queryPath),
+    getByAttribute: propertyPath => htmlElement => htmlElement.getAttribute(propertyPath),
+    getByText: htmlElement => htmlElement.text
+};
+
+/*const getters = getBy => element => {
     const getterFunctions = {
         attribute: (propertyPath) => element.getAttribute(propertyPath),
         text: () => element.text
     }
     return getterFunctions[getBy];
-}
+}*/
 
 /*** @doc
  * @how
@@ -25,7 +38,7 @@ function getTransformer(sequence: TransformationSequence[]) {
     const functionsToBeComposed = sequence.map((transformation: TransformationSequence) => {
         const { type, apply } = transformation;
         const { using, params } = apply;
-        const functionToApply = fp[using];
+        const functionToApply = fp[using] || ownFunctions[using];
         if (!functionToApply) return false;
         try {
             const partialFunction = !isEmpty(params) ? functionToApply(...params) : functionToApply;
@@ -56,19 +69,19 @@ function getResolverFields(fields: { [key: string]: FieldDefinition }) {
     return Object.entries(fields).reduce((fieldOperators, [key, fieldDefinition]) => {
         const { queryPath, getBy, propertyPath, transformationSequence } = fieldDefinition;
         const transformer = !isEmpty(transformationSequence) && getTransformer(transformationSequence);
-        const partialGetter = getters(getBy);
+        // const partialGetter = getters(getBy);
         const operator = (productElement) => {
-            const element = !isEmpty(queryPath) ? productElement.querySelector(queryPath) : productElement;
+            // const element = !isEmpty(queryPath) ? productElement.querySelector(queryPath) : productElement;
+            //
+            // if (!partialGetter) return '';
+            // const getter = partialGetter(element);
+            //
+            // if (!getter) return '';
+            // const actualValue = getter(propertyPath);
+            // if (isEmpty(actualValue)) return '';
 
-            if (!partialGetter) return '';
-            const getter = partialGetter(element);
-
-            if (!getter) return '';
-            const actualValue = getter(propertyPath);
-            if (isEmpty(actualValue)) return '';
-
-            if (!transformer) return actualValue;
-            const transformedValue = transformer(actualValue);
+            if (!transformer) return 'TSRequired';
+            const transformedValue = transformer(productElement);
             return isEmpty(transformedValue) ? '' : transformedValue;
         }
         fieldOperators[key] = operator || (() => '');

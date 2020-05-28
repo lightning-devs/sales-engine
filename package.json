@@ -36,6 +36,7 @@
     "class-transformer": "^0.2.3",
     "class-validator": "^0.12.2",
     "document-register-element": "1.13.1",
+    "get-clean-string": "^2.2.0",
     "grommet": "^2.13.0",
     "grommet-icons": "^4.4.0",
     "grommet-styles": "^0.2.0",

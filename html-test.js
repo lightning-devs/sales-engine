@@ -1,5 +1,5 @@
 const { parse } = require('node-html-parser');
-const last = require('lodash/last');
+const fp = require('lodash/fp');
 
 const fs = require('fs')
 const path = require('path')
@@ -7,7 +7,21 @@ const path = require('path')
 const guatique = fs.readFileSync(path.resolve(__dirname, 'guatique.html'), 'utf8')
 
 const list = parse(guatique);
-// const orders = list.querySelectorAll('.products .product-small');
+
+const orders = list.querySelectorAll('.product');
+
+const orderValues = orders.map(order => {
+    const name = order.querySelector('.product-title a').text.split('\r\n').map(s => s.trim()).join(' ');
+    const price = order.querySelector('.product-price').text;
+    const image = order.querySelector('.product-image img').getAttribute('src');
+    return { name, price, image };
+});
+
+console.log(orderValues);
+
+/*
+// Kemik Test
+
 const orders = list.querySelectorAll('.products .col-inner');
 
 const ordersValues = orders.map(order => {
@@ -23,13 +37,17 @@ const ordersValues = orders.map(order => {
     if (image.includes(' ')) {
         image = image.split(' ')[0];
     }
-    
+
     return { name, image, price };
 })
 
 console.log(ordersValues);
+*/
 
-/*const orders = list.querySelectorAll('#JS_main_product_list .JSproductListItems .JS_product');
+/*
+// Guatique Test
+
+const orders = list.querySelectorAll('#JS_main_product_list .JSproductListItems .JS_product');
 
 const ordersValues = orders.map(order => {
     const name = order.getAttribute('name');

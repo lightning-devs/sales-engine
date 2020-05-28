@@ -2,11 +2,11 @@
 
 ## SalesSources
 
-- Kemik
+- (X) Kemik
 - Macrosistemas
-- Rech
-- Spirit
-- Guatique
+- (X) Rech
+- (X) Spirit
+- (X) Guatique
 - Pacifiko
 - Intelaf
 - Click

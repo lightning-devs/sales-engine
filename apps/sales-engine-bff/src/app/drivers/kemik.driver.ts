@@ -20,11 +20,11 @@ export const KemikDriver: Driver = {
             price: {
                 queryPath: '.box-text .price-wrapper',
                 getBy: 'text',
-                propertyPath: 'price',
                 transformationSequence: [
                     { type: 'expression', apply: { using: 'trim' } },
-                    { type: 'expression', apply: { using: 'split', params: ['Q'] } },
-                    { type: 'expression', apply: { using: 'last' } }
+                    { type: 'expression', apply: { using: 'split', params: [' '] }},
+                    { type: 'expression', apply: { using: 'last' }},
+                    { type: 'expression', apply: { using: 'replace', params: ['Q', ''] } }
                 ]
             },
             image: {

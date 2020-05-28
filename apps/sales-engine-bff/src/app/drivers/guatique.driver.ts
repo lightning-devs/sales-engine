@@ -29,7 +29,9 @@ export const GuatiqueDriver: Driver = {
                 queryPath: '.JSproductName',
                 propertyPath: 'href',
                 getBy: 'attribute',
-                fieldBase: 'https://www.guatique.com'
+                transformationSequence: [
+                    { type: 'expression', apply: { using: 'appendStart', params: ['https://www.guatique.com'] }}
+                ]
             }
         }
     }
