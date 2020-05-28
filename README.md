@@ -7,7 +7,7 @@
 - (X) Rech
 - (X) Spirit
 - (X) Guatique
-- Pacifiko
+- (X) Pacifiko
 - Intelaf
 - Click
 - Office Depot

@@ -13,23 +13,25 @@ export const GuatiqueDriver: Driver = {
         queryPath: '#JS_main_product_list .JSproductListItems .JS_product',
         fields: {
             name: {
-                propertyPath: 'name',
-                getBy: 'attribute'
+                transformationSequence: [
+                    { type: 'expression', apply: { using: 'getAttribute', params: ['name'] }}
+                ],
             },
             price: {
-                propertyPath: 'price',
-                getBy: 'attribute'
+                transformationSequence: [
+                    { type: 'expression', apply: { using: 'getAttribute', params: ['price'] }}
+                ],
             },
             image: {
-                queryPath: '.prod_img .wrapImg2 .responsive-image',
-                propertyPath: 'data-src',
-                getBy: 'attribute'
+                transformationSequence: [
+                    { type: 'expression', apply: { using: 'select', params: ['.prod_img .wrapImg2 .responsive-image'] }},
+                    { type: 'expression', apply: { using: 'getAttribute', params: ['data-src'] }}
+                ]
             },
             link: {
-                queryPath: '.JSproductName',
-                propertyPath: 'href',
-                getBy: 'attribute',
                 transformationSequence: [
+                    { type: 'expression', apply: { using: 'select', params: ['.JSproductName'] }},
+                    { type: 'expression', apply: { using: 'getAttribute', params: ['href'] }},
                     { type: 'expression', apply: { using: 'appendStart', params: ['https://www.guatique.com'] }}
                 ]
             }

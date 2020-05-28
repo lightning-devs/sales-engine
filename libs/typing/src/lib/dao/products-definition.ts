@@ -10,7 +10,7 @@ export interface FieldDefinition {
     propertyPath?: string,
     queryPath?: string,
     fieldBase?: string,
-    getBy: 'attribute' | 'text',
+    getBy?: 'attribute' | 'text',
     transformationSequence?: TransformationSequence[],
 }
 

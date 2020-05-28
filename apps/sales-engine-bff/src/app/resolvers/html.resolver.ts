@@ -13,8 +13,8 @@ const ownFunctions = {
     clean: currentValue => cleaner(currentValue),
     select: queryPath => htmlElement => htmlElement.querySelector(queryPath),
     selectAll: queryPath => htmlElement => htmlElement.querySelectorAll(queryPath),
-    getByAttribute: propertyPath => htmlElement => htmlElement.getAttribute(propertyPath),
-    getByText: htmlElement => htmlElement.text
+    getAttribute: propertyPath => htmlElement => htmlElement.getAttribute(propertyPath),
+    getText: htmlElement => htmlElement.text
 };
 
 /*const getters = getBy => element => {
