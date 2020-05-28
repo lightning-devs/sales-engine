@@ -13,22 +13,23 @@ export const ClickDriver: Driver = {
         queryPath: '.productsContent .container .row .col-md-3',
         fields: {
             name: {
-                queryPath: '.productCaption a textarea',
-                getBy: 'text'
+                transformationSequence: [
+                    { type: 'expression', apply: { using: 'select', params: ['.productCaption a textarea']} },
+                    { type: 'expression', apply: { using: 'getText' } }
+                ]
             },
-            /*price: {
-                queryPath: '.productCaption a label',
-                getBy: 'text',
+            price: {
                 transformationSequence: [
-                    { type: 'expression', apply: { using: 'split', params: ['Q'] } },
+                    { type: 'expression', apply: { using: 'selectAll', params: ['.productCaption a label']} },
                     { type: 'expression', apply: { using: 'last' } },
+                    { type: 'expression', apply: { using: 'getText' } },
+                    { type: 'expression', apply: { using: 'replace', params: ['Q', ''] } }
                 ],
-            },*/
+            },
             image: {
-                queryPath: '.productBox .lazyload',
-                getBy: 'attribute',
-                propertyPath: 'data-srcset',
                 transformationSequence: [
+                    { type: 'expression', apply: { using: 'select', params: ['.productBox .lazyload'] }},
+                    { type: 'expression', apply: { using: 'getAttribute', params: ['data-srcset'] }},
                     { type: 'expression', apply: { using: 'split', params: [','] }},
                     { type: 'expression', apply: { using: 'last' }},
                     { type: 'expression', apply: { using: 'replace', params: ['\n                                 ', ''] }},

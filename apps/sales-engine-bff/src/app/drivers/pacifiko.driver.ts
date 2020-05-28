@@ -13,23 +13,25 @@ export const PacifikoDriver: Driver = {
         queryPath: '.products-list .product-layout .product-item-container',
         fields: {
             name: {
-                queryPath: '.right-block .price a',
-                getBy: 'attribute',
-                propertyPath: 'title'
+                transformationSequence: [
+                    { type: 'expression', apply: { using: 'select', params: ['.right-block .price a'] }},
+                    { type: 'expression', apply: { using: 'getAttribute', params: ['title'] }},
+                ]
             },
             price: {
-                queryPath: '.right-block .price .price-new',
-                getBy: 'text',
                 transformationSequence: [
+                    { type: 'expression', apply: { using: 'select', params: ['.right-block .price .price-new']} },
+                    { type: 'expression', apply: { using: 'getText' } },
                     { type: 'expression', apply: { using: 'replace', params: ['Q', ''] } },
                     { type: 'expression', apply: { using: 'clean' }},
                     { type: 'expression', apply: { using: 'replace', params: [' ', ''] }}
                 ],
             },
             image: {
-                queryPath: '.left-block .product-image-container .img-responsive',
-                getBy: 'attribute',
-                propertyPath: 'data-src'
+                transformationSequence: [
+                    { type: 'expression', apply: { using: 'select', params: ['.left-block .product-image-container .img-responsive'] }},
+                    { type: 'expression', apply: { using: 'getAttribute', params: ['data-src'] }},
+                ]
             }
         }
     }

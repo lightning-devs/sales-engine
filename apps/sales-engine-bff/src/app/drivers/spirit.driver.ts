@@ -13,23 +13,24 @@ export const SpiritDriver: Driver = {
         queryPath: '.list .product-container',
         fields: {
             name: {
-                queryPath: '.item-title',
-                getBy: 'text'
+                transformationSequence: [
+                    { type: 'expression', apply: { using: 'select', params: ['.item-title']} },
+                    { type: 'expression', apply: { using: 'getText' } },
+                ]
             },
             price: {
-                queryPath: '.PricesalesPrice',
-                getBy: 'text',
                 transformationSequence: [
+                    { type: 'expression', apply: { using: 'select', params: ['.PricesalesPrice']} },
+                    { type: 'expression', apply: { using: 'getText' } },
                     { type: 'expression', apply: { using: 'split', params: [' '] } },
                     { type: 'expression', apply: { using: 'last' } },
                 ],
             },
             image: {
-                queryPath: '.img-panel .browseProductImage',
-                getBy: 'attribute',
-                propertyPath: 'src',
                 transformationSequence: [
-                    { type: 'expression', apply: { using: 'appendStart', params: ['https://www.spiritcomputacion.com/'] }}
+                    { type: 'expression', apply: { using: 'select', params: ['.img-panel .browseProductImage'] }},
+                    { type: 'expression', apply: { using: 'getAttribute', params: ['src'] }},
+                    { type: 'expression', apply: { using: 'appendStart', params: ['https://www.spiritcomputacion.com'] }}
                 ]
             }
         }

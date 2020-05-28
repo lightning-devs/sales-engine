@@ -13,14 +13,15 @@ export const KemikDriver: Driver = {
         queryPath: '.products .col-inner',
         fields: {
             name: {
-                queryPath: '.box-image .image-zoom .size-woocommerce_thumbnail',
-                getBy: 'attribute',
-                propertyPath: 'title'
+                transformationSequence: [
+                    { type: 'expression', apply: { using: 'select', params: ['.box-image .image-zoom .size-woocommerce_thumbnail'] }},
+                    { type: 'expression', apply: { using: 'getAttribute', params: ['title'] }},
+                ]
             },
             price: {
-                queryPath: '.box-text .price-wrapper',
-                getBy: 'text',
                 transformationSequence: [
+                    { type: 'expression', apply: { using: 'select', params: ['.box-text .price-wrapper'] }},
+                    { type: 'expression', apply: { using: 'getText' }},
                     { type: 'expression', apply: { using: 'trim' } },
                     { type: 'expression', apply: { using: 'split', params: [' '] }},
                     { type: 'expression', apply: { using: 'last' }},
@@ -28,10 +29,9 @@ export const KemikDriver: Driver = {
                 ]
             },
             image: {
-                queryPath: '.box-image .image-zoom .size-woocommerce_thumbnail',
-                getBy: 'attribute',
-                propertyPath: 'srcset',
                 transformationSequence: [
+                    { type: 'expression', apply: { using: 'select', params: ['.box-image .image-zoom .size-woocommerce_thumbnail'] }},
+                    { type: 'expression', apply: { using: 'getAttribute', params: ['srcset'] }},
                     { type: 'condition', apply: { using: 'includes', params: [' '] } },
                     { type: 'expression', apply: { using: 'split', params: [' '] } },
                     { type: 'expression', apply: { using: 'first' } }

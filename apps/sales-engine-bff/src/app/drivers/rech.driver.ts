@@ -13,21 +13,24 @@ export const RechDriver: Driver = {
         queryPath: '.product',
         fields: {
             name: {
-                queryPath: '.product-title a',
-                getBy: 'text'
+                transformationSequence: [
+                    { type: 'expression', apply: { using: 'select', params: ['.product-title a']} },
+                    { type: 'expression', apply: { using: 'getText' } },
+                ]
             },
             price: {
-                queryPath: '.product-price',
-                getBy: 'text',
                 transformationSequence: [
+                    { type: 'expression', apply: { using: 'select', params: ['.product-price']} },
+                    { type: 'expression', apply: { using: 'getText' } },
                     { type: 'expression', apply: { using: 'split', params: [' '] } },
                     { type: 'expression', apply: { using: 'last' } },
                 ],
             },
             image: {
-                queryPath: '.product-image img',
-                getBy: 'attribute',
-                propertyPath: 'src',
+                transformationSequence: [
+                    { type: 'expression', apply: { using: 'select', params: ['.product-image img'] }},
+                    { type: 'expression', apply: { using: 'getAttribute', params: ['src'] }},
+                ]
             }
         }
     }
