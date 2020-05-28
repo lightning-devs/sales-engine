@@ -17,14 +17,6 @@ const ownFunctions = {
     getText: htmlElement => htmlElement.text
 };
 
-/*const getters = getBy => element => {
-    const getterFunctions = {
-        attribute: (propertyPath) => element.getAttribute(propertyPath),
-        text: () => element.text
-    }
-    return getterFunctions[getBy];
-}*/
-
 /*** @doc
  * @how
  * The conditional system is a breaking-on-false applied to the sequence, if a function on the sequence returns false, the sequence stops
@@ -67,19 +59,9 @@ function getTransformer(sequence: TransformationSequence[]) {
  */
 function getResolverFields(fields: { [key: string]: FieldDefinition }) {
     return Object.entries(fields).reduce((fieldOperators, [key, fieldDefinition]) => {
-        const { queryPath, getBy, propertyPath, transformationSequence } = fieldDefinition;
+        const { transformationSequence } = fieldDefinition;
         const transformer = !isEmpty(transformationSequence) && getTransformer(transformationSequence);
-        // const partialGetter = getters(getBy);
         const operator = (productElement) => {
-            // const element = !isEmpty(queryPath) ? productElement.querySelector(queryPath) : productElement;
-            //
-            // if (!partialGetter) return '';
-            // const getter = partialGetter(element);
-            //
-            // if (!getter) return '';
-            // const actualValue = getter(propertyPath);
-            // if (isEmpty(actualValue)) return '';
-
             if (!transformer) return 'TSRequired';
             const transformedValue = transformer(productElement);
             return isEmpty(transformedValue) ? '' : transformedValue;
