@@ -6,5 +6,6 @@ export interface Driver {
     name: string;
     type: 'html' | 'json';
     search: Search;
+    sequence: any;
     productsDefinition?: ProductsDefinition;
 }

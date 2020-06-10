@@ -11,7 +11,7 @@ export interface FieldDefinition {
     queryPath?: string,
     fieldBase?: string,
     getBy?: 'attribute' | 'text',
-    transformationSequence?: TransformationSequence[],
+    sequence?: TransformationSequence[],
 }
 
 export interface TransformationSequence {

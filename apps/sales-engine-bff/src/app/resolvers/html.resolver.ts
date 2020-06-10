@@ -59,8 +59,8 @@ function getTransformer(sequence: TransformationSequence[]) {
  */
 function getResolverFields(fields: { [key: string]: FieldDefinition }) {
     return Object.entries(fields).reduce((fieldOperators, [key, fieldDefinition]) => {
-        const { transformationSequence } = fieldDefinition;
-        const transformer = !isEmpty(transformationSequence) && getTransformer(transformationSequence);
+        const { sequence } = fieldDefinition;
+        const transformer = !isEmpty(sequence) && getTransformer(sequence);
         const operator = (productElement) => {
             if (!transformer) return 'TSRequired';
             const transformedValue = transformer(productElement);

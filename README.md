@@ -1,5 +1,18 @@
 # Sales Engine
 
+## Flow
+
+{  
+    lodash,
+    rambax,
+    salesEngineFunctions
+}                                { sequence: KemikSequence }          { keyword: 'razer' }
+       lib/sequences       =>            sequencer              =>       transformador         =>     [{ name: 'Ornata ' }, { name: 'Hunstman' }]
+____
+## Commands
+
+1. Create a library: `nx g @nrwl/web library-name`
+
 ## SalesSources
 
 - (X) Kemik
@@ -9,7 +22,7 @@
 - (X) Guatique
 - (X) Pacifiko
 - Intelaf
-- Click
+- (X) Click
 - Office Depot
 - Imeqmo
 - Intcomex
@@ -76,3 +89,16 @@ In the above case we should create a double-check for the results obtained from 
 3. Backend
 4. Data sources
   4.1. JSON files containing the mapping from the stores
+  
+
+5. Sequences Lib
+    5.1 Lib refactor
+        5.1.1 async expressions
+        5.1.2 lists -> own sequence (map)
+        5.1.3 conditions -> conditional sequence
+    5.2 Nest Integration -> SequenceModule
+    5.3 New SE's functions
+        -> fetch
+        -> interpolate
+
+6. Firebase Integration (FE)
