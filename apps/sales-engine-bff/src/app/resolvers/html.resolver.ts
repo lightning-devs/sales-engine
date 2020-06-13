@@ -1,4 +1,4 @@
-import { Driver, FieldDefinition, TransformationSequence } from '@lightning/typing';
+import { Driver, FieldDefinition, Sequence } from '@lightning/typing';
 import { parse } from 'node-html-parser';
 import isEmpty from 'lodash/isEmpty';
 import compose from 'lodash/flow';
@@ -26,8 +26,8 @@ const ownFunctions = {
  * When the "apply" function doesn't exist in lodash/fp, the sequence stops
  * If something fails (e.g. an exception was thrown) the sequence stops
 ***/
-function getTransformer(sequence: TransformationSequence[]) {
-    const functionsToBeComposed = sequence.map((transformation: TransformationSequence) => {
+function getTransformer(sequence: Sequence[]) {
+    const functionsToBeComposed = sequence.map((transformation: Sequence) => {
         const { type, apply } = transformation;
         const { using, params } = apply;
         const functionToApply = fp[using] || ownFunctions[using];

@@ -1,5 +1,5 @@
 import { Search } from './search';
-import { ProductsDefinition } from './products-definition';
+import { ProductsDefinition } from './sequences.type';
 
 export interface Driver {
     id: string;

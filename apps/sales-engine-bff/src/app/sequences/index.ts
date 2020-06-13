@@ -1,6 +1,6 @@
 import { GuatiqueDriver } from './guatique.driver';
 import { MacroSistemasDriver } from './macrosistemas.driver';
-import { KemikDriver } from './kemik.driver';
+import { KemikSequence } from './kemikSequence';
 import { RechDriver } from './rech.driver';
 import { SpiritDriver } from './spirit.driver';
 import { ClickDriver } from './click.driver';
@@ -9,7 +9,7 @@ import { PacifikoDriver } from './pacifiko.driver';
 const drivers = {
     guatique: GuatiqueDriver,
     macroSistemas: MacroSistemasDriver,
-    kemik: KemikDriver,
+    kemik: KemikSequence,
     rech: RechDriver,
     spirit: SpiritDriver,
     click: ClickDriver,

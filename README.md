@@ -1,5 +1,35 @@
 # Sales Engine
 
+## TODO
+
+1. Lib / Typings
+    1.1. how to create a nx library? [X]
+    1.2. Change Drivers' typings to Sequences (Update Typing Lib)
+
+2. Frontend
+    -> Redux
+    -> Redux-Saga
+    -> Redux Toolkit
+    -> Grommet
+
+3. Backend
+
+4. Data sources
+  4.1. JSON files containing the mapping from the stores
+  
+5. Sequences Lib
+    5.1. Lib refactor
+        5.1.1 async expressions
+        5.1.2 lists -> own sequence (map)
+        5.1.3 conditions -> conditional sequence
+    5.2. Nest Integration -> SequenceModule [X]
+    5.3. New SE's functions [X]
+        -> fetch [X]
+        -> interpolate [X]
+        -> fields 
+
+6. Firebase Integration (FE)
+
 ## Flow
 
 {  
@@ -7,7 +37,7 @@
     rambax,
     salesEngineFunctions
 }                                { sequence: KemikSequence }          { keyword: 'razer' }
-       lib/sequences       =>            sequencer              =>       transformador         =>     [{ name: 'Ornata ' }, { name: 'Hunstman' }]
+       lib/sequences       =>            sequencer              =>       transformer         =>     [{ name: 'Ornata ' }, { name: 'Hunstman' }]
 ____
 ## Commands
 
@@ -25,7 +55,6 @@ ____
 - (X) Click
 - Office Depot
 - Imeqmo
-- Intcomex
 
 ### Mapping
 
@@ -47,7 +76,7 @@ Results:
 ## Statements
 
 - Search the keyword entered by the user in the main local stores
-- Will return the results provided by the stores in an unified view
+- Will return the results provided by the stores in a unified view
 - Will allow the user to add the results to a "Selection List" for further comparison
 - Provides a direct link to the product in the store
 - Allows the user select the stores in which search for it's product
@@ -65,7 +94,7 @@ Contains the following info:
 - Product Image
   
   
-# Exceptions
+## Exceptions
  
 For stores providing ambiguous results.
 
@@ -76,29 +105,55 @@ Example:
 In the above case we should create a double-check for the results obtained from the store to ensure they match the user search.
 
 
-## TODO
+### Conditional System
 
-1. Lib / Typings
-    1.1. how to create a nx library?
-    1.2. Create the data  interfaces
-2. Frontend
-    -> Redux
-    -> Redux-Saga
-    -> Redux Toolkit
-    -> Grommet
-3. Backend
-4. Data sources
-  4.1. JSON files containing the mapping from the stores
-  
+A sequence, by itself, is a composed function, therefore, based on the FP concepts, it could be used into another compositions.
+Based on that, a condition, no matter what happen inside of it, should return a sequence on its function/composed version; so it's gonna be used into
+the main sequence composition like a 'normal' function. Long story short, a condition returns a sequence and, at runtime, that sequence is a function.
 
-5. Sequences Lib
-    5.1 Lib refactor
-        5.1.1 async expressions
-        5.1.2 lists -> own sequence (map)
-        5.1.3 conditions -> conditional sequence
-    5.2 Nest Integration -> SequenceModule
-    5.3 New SE's functions
-        -> fetch
-        -> interpolate
+Some properties described below could have more than one value, that was made like in an intent to have more semantic meaning and easiness to read.
 
-6. Firebase Integration (FE)
+-> *type*: 'condition'
+    -> this indicates to the sequence that it needs to break into a decision tree
+-> *cases*
+    -> this property holds the condition cases array
+    -> *when*
+        -> this property has the case's conditions, this set of conditions should resolve to a truthy value in order to use its sequence.
+            Next you can see the when's properties:
+            -> *boolean relation **NAME***
+                -> this property, defined by its very own name, creates a relationship between the conditions
+                -> valid name values:
+                    -> normal names (it uses the raw boolean value from the condition)
+                        -> *is / it /*
+                        -> AND relation
+                            -> *andIt / andIs*
+                        -> OR Relation
+                            -> *orIt / orIs*
+                    -> negated names (it flips the boolean value from the condition)
+                        -> *isNot / itDoesnt*
+                        -> AND relation
+                            -> *andIsNot / andItDoesnt*
+                        -> OR relation
+                            -> *orIsNot / orItDoesnt*
+            -> *boolean relation **VALUE***
+                -> this is a function predicate which exists on any of the sources provided to the sequencer library, or it could a predicate function supported by the sequencer library.
+            -> *to / this*
+                -> this double-named property has the params that will be sent ir order to preload the function predicate defined previously
+                        
+                
+-> default
+    -> default sequence in case neither of the cases resolve to a next sequence
+
+
+    
+
+
+
+
+
+
+
+
+
+
+

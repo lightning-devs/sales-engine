@@ -1,21 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { ResolverService } from './resolver.services';
+import { SequencerService } from './sequencer.service';
 import { Product } from '@lightning/typing';
+import isEmpty from 'lodash/isEmpty';
 
-import drivers from '../drivers';
+import sourcesSequences from '../sequences';
 
 @Injectable()
 export class DataSourcesService {
 
-    constructor(private resolverService: ResolverService) {}
+    constructor(private resolverService: SequencerService) {}
 
-    resolverCaller = keyword => driver => {
-        return this.resolverService.searchByDriver(driver, keyword);
-    }
-    searchByDataSources(sources: string[], keyword): Promise<Product[]> {
-        const currentDrivers = sources.map(source => drivers[source]).filter(driver => driver);
+    searchByDataSources(sources: string[], requestParams): Promise<Product[]> {
+        // Transformers generated from the stores' sequences
+        const transformers = sources
+            .map(source => sourcesSequences[source])
+            .filter(sequence => !isEmpty(sequence))
+            .map(sequence => this.resolverService.getTransformer(sequence));
 
-        const resolvedPromises = currentDrivers.map(this.resolverCaller(keyword));
-        return Promise.all(resolvedPromises);
+        // A transformer returns a Promise with the final result it got using a transformation sequence
+        const transformedPromises = transformers.map(transformer => transformer(requestParams));
+        return Promise.all(transformedPromises);
     }
 }
