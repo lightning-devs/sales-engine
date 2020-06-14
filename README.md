@@ -46,16 +46,16 @@ ____
 
 ## SalesSources
 
-- (X) Kemik
-- Macrosistemas
-- (X) Rech
-- (X) Spirit
-- (X) Guatique
-- (X) Pacifiko
-- Intelaf
-- (X) Click
-- Office Depot
-- Imeqmo
+[X] Kemik 
+[X] Rech
+[X] Spirit
+[X] Guatique
+[X] Pacifiko
+[X] Click
+[] Macrosistemas
+[] Intelaf
+[] Imeqmo
+[] Office Depot
 
 ### Mapping
 

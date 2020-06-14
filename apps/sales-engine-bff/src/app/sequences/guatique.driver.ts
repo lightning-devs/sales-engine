@@ -1,40 +1,40 @@
 import { Driver } from '@lightning/typing';
 
+const guatiqueFields = {
+    name: {
+        sequence: [
+            { type: 'expression', apply: { using: 'getAttribute', params: ['name'] }}
+        ],
+    },
+    price: {
+        sequence: [
+            { type: 'expression', apply: { using: 'getAttribute', params: ['price'] }}
+        ],
+    },
+    image: {
+        sequence: [
+            { type: 'expression', apply: { using: 'select', params: ['.prod_img .wrapImg2 .responsive-image'] }},
+            { type: 'expression', apply: { using: 'getAttribute', params: ['data-src'] }}
+        ]
+    },
+    link: {
+        sequence: [
+            { type: 'expression', apply: { using: 'select', params: ['.JSproductName'] }},
+            { type: 'expression', apply: { using: 'getAttribute', params: ['href'] }},
+            { type: 'expression', apply: { using: 'appendStart', params: ['https://www.guatique.com'] }}
+        ]
+    }
+};
+
 export const GuatiqueDriver = {
     id: 'guatique',
     name: 'Guatique',
-    type: 'html',
-    search: {
-        baseUrl: 'https://www.guatique.com/es/buscar/search:{keyword}',
-        method: 'GET',
-        requiredParams: ['keyword'],
-    },
-    productsDefinition: {
-        queryPath: '#JS_main_product_list .JSproductListItems .JS_product',
-        fields: {
-            name: {
-                transformationSequence: [
-                    { type: 'expression', apply: { using: 'getAttribute', params: ['name'] }}
-                ],
-            },
-            price: {
-                transformationSequence: [
-                    { type: 'expression', apply: { using: 'getAttribute', params: ['price'] }}
-                ],
-            },
-            image: {
-                transformationSequence: [
-                    { type: 'expression', apply: { using: 'select', params: ['.prod_img .wrapImg2 .responsive-image'] }},
-                    { type: 'expression', apply: { using: 'getAttribute', params: ['data-src'] }}
-                ]
-            },
-            link: {
-                transformationSequence: [
-                    { type: 'expression', apply: { using: 'select', params: ['.JSproductName'] }},
-                    { type: 'expression', apply: { using: 'getAttribute', params: ['href'] }},
-                    { type: 'expression', apply: { using: 'appendStart', params: ['https://www.guatique.com'] }}
-                ]
-            }
-        }
-    }
+    sequence: [
+        { type: 'expression', apply: { using: 'interpolate', params: ['https://www.guatique.com/es/buscar/search:{keyword}'] } },
+        { type: 'expression', apply: { using: 'fetch', params: { method: 'GET' } } },
+        { type: 'expression', apply: { using: 'get', params: ['data'] } },
+        { type: 'expression', apply: { using: 'parseHtml' }},
+        { type: 'expression', apply: { using: 'selectAll', params: '#JS_main_product_list .JSproductListItems .JS_product' } },
+        { type: 'map', apply: { using: 'fields', params: { fieldsSequences: guatiqueFields } } }
+    ]
 }
