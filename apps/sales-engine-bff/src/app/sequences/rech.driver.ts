@@ -1,6 +1,6 @@
 import { Driver } from '@lightning/typing';
 
-export const RechDriver: Driver = {
+export const RechDriver = {
     id: 'rech',
     name: 'Rech',
     type: 'html',

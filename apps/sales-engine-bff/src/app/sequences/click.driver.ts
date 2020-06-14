@@ -1,6 +1,6 @@
 import { Driver } from '@lightning/typing';
 
-export const ClickDriver: Driver = {
+export const ClickDriver = {
     id: 'click',
     name: 'Click Guatemala',
     type: 'html',

@@ -1,6 +1,6 @@
 import { Driver } from '@lightning/typing';
 
-export const PacifikoDriver: Driver = {
+export const PacifikoDriver = {
     id: 'pacifiko',
     name: 'Pacifiko',
     type: 'html',

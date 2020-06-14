@@ -1,6 +1,6 @@
 import { Driver } from '@lightning/typing';
 
-export const MacroSistemasDriver: Driver = {
+export const MacroSistemasDriver = {
     id: 'macrosistemas',
     name: 'Macro Sistemas',
     type: 'json',

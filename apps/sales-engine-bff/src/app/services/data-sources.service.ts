@@ -15,7 +15,7 @@ export class DataSourcesService {
         const transformers = sources
             .map(source => sourcesSequences[source])
             .filter(sequence => !isEmpty(sequence))
-            .map(sequence => this.resolverService.getTransformer(sequence));
+            .map(sequence => this.resolverService.getTransformer(sequence.sequence));
 
         // A transformer returns a Promise with the final result it got using a transformation sequence
         const transformedPromises = transformers.map(transformer => transformer(requestParams));

@@ -4,7 +4,6 @@
 
 1. Lib / Typings
     1.1. how to create a nx library? [X]
-    1.2. Change Drivers' typings to Sequences (Update Typing Lib)
 
 2. Frontend
     -> Redux
@@ -18,15 +17,17 @@
   4.1. JSON files containing the mapping from the stores
   
 5. Sequences Lib
-    5.1. Lib refactor
-        5.1.1 async expressions
-        5.1.2 lists -> own sequence (map)
-        5.1.3 conditions -> conditional sequence
+    5.1. Lib refactor [X]
+        5.1.1 async expressions [X]
+        5.1.2 lists -> own sequence (map) [X]
+        5.1.3 conditions -> conditional sequence [X]
     5.2. Nest Integration -> SequenceModule [X]
     5.3. New SE's functions [X]
         -> fetch [X]
         -> interpolate [X]
-        -> fields 
+        -> fields  [X]
+    5.4. Adapt the old drivers to the new schema.
+    5.5. Change Drivers' typings to Sequences (Update Typing Lib)
 
 6. Firebase Integration (FE)
 

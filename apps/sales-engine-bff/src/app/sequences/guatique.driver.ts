@@ -1,6 +1,6 @@
 import { Driver } from '@lightning/typing';
 
-export const GuatiqueDriver: Driver = {
+export const GuatiqueDriver = {
     id: 'guatique',
     name: 'Guatique',
     type: 'html',

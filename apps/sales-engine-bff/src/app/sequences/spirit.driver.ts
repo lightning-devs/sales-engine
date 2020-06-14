@@ -1,6 +1,6 @@
 import { Driver } from '@lightning/typing';
 
-export const SpiritDriver: Driver = {
+export const SpiritDriver = {
     id: 'spirit',
     name: 'Spirit Computacion',
     type: 'html',
