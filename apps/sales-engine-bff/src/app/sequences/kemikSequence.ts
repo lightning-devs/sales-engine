@@ -20,24 +20,31 @@ const kemikFields = {
             { type: 'expression', apply: { using: 'select', params: ['.box-image .image-zoom .size-woocommerce_thumbnail'] }},
             { type: 'expression', apply: { using: 'getAttribute', params: ['srcset'] }},
             {
-                type: 'condition',
-                cases: [
-                    {
-                        when: [
-                            { it: 'includes', to: [' '] }
+                type: 'expression',
+                apply: {
+                    using: 'condition',
+                    params: {
+                        cases: [
+                            {
+                                when: [
+                                    { it: 'includes', to: [' '] }
+                                ],
+                                returns: [
+                                    { type: 'expression', apply: { using: 'split', params: [' '] }},
+                                    { type: 'expression', apply: { using: 'first' } }
+                                ]
+                            },
+                            {
+                                when: 'fallback',
+                                returns: [
+                                    { type: 'expression', apply: { using: 'returns', params: ['no/image/available'] } }
+                                ]
+                            }
                         ],
-                        // sequence
-                        sequence: [
-                            { type: 'expression', apply: { using: 'split', params: [' '] } },
-                            { type: 'expression', apply: { using: 'first' } }
-                        ]
                     }
-                ],
-                // sequence
-                defaultCase: [
-                    { type: 'expression', apply: { using: 'returns', params: ['no/image/available']} }
-                ]
+                }
             },
+            { type: 'expression', apply: { using: 'sequencer' } }
         ]
     },
 };

@@ -3,6 +3,7 @@ import { getSequencer } from '@lightning/sequences';
 import fp from 'lodash/fp';
 import { seFunctions } from '../utils/salesEngineFunctions';
 import isEmpty from 'lodash/isEmpty';
+import { getConditioner } from '../../../../../libs/sequences/src/lib/conditioners';
 
 @Injectable()
 export class SequencerService {
@@ -28,11 +29,16 @@ export class SequencerService {
     }
 
     private getSeq() {
-        const sourceFunctions = [
+        let sourceFunctions = [
             fp,
             seFunctions,
+        ]
+        const conditioner = getConditioner(...sourceFunctions);
+        sourceFunctions = [
+            ...sourceFunctions,
             {
                 fetch: this.getFetch(),
+                condition: conditioner,
             }
         ]
         return getSequencer(...sourceFunctions);

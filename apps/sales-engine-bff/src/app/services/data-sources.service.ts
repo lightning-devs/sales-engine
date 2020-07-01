@@ -12,13 +12,12 @@ export class DataSourcesService {
 
     searchByDataSources(sources: string[], requestParams): Promise<Product[]> {
         // Transformers generated from the stores' sequences
-        const transformers = sources
+        const transformedSequences = sources
             .map(source => sourcesSequences[source])
             .filter(sequence => !isEmpty(sequence))
-            .map(sequence => this.resolverService.getTransformer(sequence.sequence));
+            .map(({ sequence }) => this.resolverService.getTransformer({ sequence, initialValues: requestParams }));
 
         // A transformer returns a Promise with the final result it got using a transformation sequence
-        const transformedPromises = transformers.map(transformer => transformer(requestParams));
-        return Promise.all(transformedPromises);
+        return Promise.all(transformedSequences);
     }
 }

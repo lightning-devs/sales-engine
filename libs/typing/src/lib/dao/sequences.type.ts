@@ -36,8 +36,8 @@ export type Conditioner = {
 }
 
 export interface ConditionalCase {
-    when: Conditioner;
-    sequence: Sequence[];
+    when: Conditioner[] | 'fallback';
+    returns: Sequence[];
 }
 
 export interface Sequence {
@@ -47,5 +47,6 @@ export interface Sequence {
         using: string,
         params?: any[]
     }
-    defaultCase?: Sequence;
 }
+
+export type FunctionSeeker = (functionName: string) => Function;
