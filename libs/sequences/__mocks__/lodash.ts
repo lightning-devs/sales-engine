@@ -1,8 +1,11 @@
-const memoize = val => val;
+const memoize = jest.requireActual('lodash/memoize');
 
-const isEmpty = val => !val;
+const isEmpty = jest.requireActual('lodash/isEmpty');
+
+const flow = jest.requireActual('lodash/flow');
 
 module.exports = {
     memoize,
-    isEmpty
+    isEmpty,
+    flow
 }

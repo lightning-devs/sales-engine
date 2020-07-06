@@ -1,5 +1,6 @@
 import { ConditionalCase, Conditioner } from '@lightning/typing';
-import { isEmpty, flow as compose } from 'lodash';
+import lodash from 'lodash';
+import { isEmpty, flow } from 'lodash';
 import { getFunctionSeeker } from './functionSeeker';
 
 type FunctionSeeker = (functionName: string) => Function
@@ -26,7 +27,6 @@ const getConditionalPredicate = (conditioners: Conditioner[], functionSeeker: Fu
         const [relation, value] = Object.entries(conditioner).find(([key]) => allRelations.includes(key));
         const [, params = []] = Object.entries(conditioner).find(([key]) => paramProperties.includes(key));
         const functionToApply = functionSeeker(value as string) || (() => val => val);
-        console.log(functionToApply);
         const partialFunction = functionToApply(...params);
         const shouldNegateBoolean = allNegatedRelations.includes(relation);
         const isOrRelation = allOrRelations.includes(relation);
@@ -42,7 +42,7 @@ const getConditionalPredicate = (conditioners: Conditioner[], functionSeeker: Fu
             return { currentBoolean: nextBoolean, currentValue };
         };
     }, []);
-    return compose((currentValue) => ({ currentBoolean: false, currentValue }), ...conditionersToCompose);
+    return flow((currentValue) => ({ currentBoolean: false, currentValue }), ...conditionersToCompose);
 }
 
 export const getConditioner = (...sourceFunctions) => (conditionalSequence: { cases: ConditionalCase[] }) => {
