@@ -27,7 +27,7 @@ const getConditionalPredicate = (conditioners: Conditioner[], functionSeeker: Fu
         const [relation, value] = Object.entries(conditioner).find(([key]) => allRelations.includes(key));
         const [, params = []] = Object.entries(conditioner).find(([key]) => paramProperties.includes(key));
         const functionToApply = functionSeeker(value as string) || (() => val => val);
-        const partialFunction = functionToApply(...params);
+        const partialFunction = isEmpty(params) ? functionToApply : functionToApply(...params);
         const shouldNegateBoolean = allNegatedRelations.includes(relation);
         const isOrRelation = allOrRelations.includes(relation);
         const isAndRelation = allAndRelations.includes(relation);
