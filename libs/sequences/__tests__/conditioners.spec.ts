@@ -26,21 +26,23 @@ const cases: any = [
     }
 ];
 
-const includes = (lookupStr) => (str) => str.includes(lookupStr);
+// const includes = (lookupStr) => (str) => str.includes(lookupStr);
+const includes = jest.requireActual('lodash/fp/includes');
 
 describe('Conditioner Testing', () => {
 
     let conditioner;
 
     beforeEach(() => {
-        conditioner = getConditioner({ includes })({ cases });
-    })
+        conditioner = getConditioner(...[{ includes }])({ cases });
+    });
 
     it('Enter to fallback', () => {
-        const FALLBACK = 'hola';
-        const result = conditioner(FALLBACK);
-        console.log('result', result);
-        expect(result).toBeTruthy();
+        const INITIAL_VALUES = 'hola';
+        const result = conditioner(INITIAL_VALUES);
+
+        console.log("result", result);
+
         expect(result.currentValue).toBe(FALLBACK_RESULT);
-    })
+    });
 })
