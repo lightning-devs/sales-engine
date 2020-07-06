@@ -33,6 +33,10 @@ const getConditionalPredicate = (conditioners: Conditioner[], functionSeeker: Fu
         const isAndRelation = allAndRelations.includes(relation);
         return (currentParameters) => {
             const { currentBoolean, currentValue } = currentParameters;
+            // if the last iteration returns "false" and the next one uses an AND boolean relation
+            // it should return the current parameters
+            if (!currentBoolean && isAndRelation) return currentParameters;
+
             const gottenBoolean = partialFunction(currentValue);
             if (typeof gottenBoolean !== 'boolean') return currentParameters;
             const actualBoolean = shouldNegateBoolean ? !gottenBoolean : gottenBoolean;
