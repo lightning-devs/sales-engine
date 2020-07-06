@@ -1,6 +1,5 @@
 import { ConditionalCase, Conditioner } from '@lightning/typing';
-import isEmpty from 'lodash/isEmpty';
-import compose from 'lodash/flow';
+import { isEmpty, flow as compose } from 'lodash';
 import { getFunctionSeeker } from './functionSeeker';
 
 type FunctionSeeker = (functionName: string) => Function
@@ -25,8 +24,9 @@ const getConditionalPredicate = (conditioners: Conditioner[], functionSeeker: Fu
         if (conditionerKeys.length > 2) throw new Error('There to many properties on the conditional case');
         if (conditionerKeys.length === 0) throw new Error('Some conditioners don\'t have the right amount of parameters');
         const [relation, value] = Object.entries(conditioner).find(([key]) => allRelations.includes(key));
-        const [, params = [] ] = Object.entries(conditioner).find(([key]) => paramProperties.includes(key));
+        const [, params = []] = Object.entries(conditioner).find(([key]) => paramProperties.includes(key));
         const functionToApply = functionSeeker(value as string) || (() => val => val);
+        console.log(functionToApply);
         const partialFunction = functionToApply(...params);
         const shouldNegateBoolean = allNegatedRelations.includes(relation);
         const isOrRelation = allOrRelations.includes(relation);

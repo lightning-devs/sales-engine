@@ -1,4 +1,4 @@
-import memoize from 'lodash/memoize';
+import { memoize } from 'lodash';
 import { FunctionSeeker } from '@lightning/typing';
 
 export const getFunctionSeeker = (sourceFunctions: Array<{ [key: string]: Function }>) => memoize((functionName: string): FunctionSeeker => {
