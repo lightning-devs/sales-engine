@@ -14,7 +14,7 @@
 3. Backend
 
 4. Data sources
-  4.1. JSON files containing the mapping from the stores
+  4.1. JSON files containing the mapping from the stores [-]
   
 5. Sequences Lib
     5.1. Lib refactor [X]
@@ -26,8 +26,8 @@
         -> fetch [X]
         -> interpolate [X]
         -> fields  [X]
-    5.4. Adapt the old drivers to the new schema.
-    5.5. Change Drivers' typings to Sequences (Update Typing Lib)
+    5.4. Adapt the old drivers to the new schema. [X]
+    5.5. Change Drivers' typings to Sequences (Update Typing Lib) [X]
 
 6. Firebase Integration (FE)
 
@@ -52,9 +52,8 @@ ____
 [X] Guatique
 [X] Pacifiko
 [X] Click
+[X] Intelaf
 [] Macrosistemas
-[] Intelaf
-[] Imeqmo
 [] Office Depot
 
 ### Mapping
