@@ -57,7 +57,7 @@ ____
 [X] Pacifiko
 [X] Click
 [X] Intelaf
-[] Macrosistemas
+[X] Macrosistemas
 [] Office Depot
 
 ### Mapping
