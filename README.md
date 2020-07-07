@@ -1,5 +1,9 @@
 # Sales Engine
 
+commit message
+jsdoc
+all-contributors (bot)
+
 ## TODO
 
 1. Lib / Typings
@@ -27,9 +31,9 @@
         -> interpolate [X]
         -> fields  [X]
     5.4. Adapt the old drivers to the new schema. [X]
-    5.5. Change Drivers' typings to Sequences (Update Typing Lib) [X]
+    5.5. Change Drivers' typings to Sequences (Update Typing Lib) [-]
 
-6. Firebase Integration (FE)
+6. Firebase Integration (FE) [-]
 
 ## Flow
 
