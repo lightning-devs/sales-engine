@@ -1,5 +1,3 @@
-import { Driver } from '@lightning/typing';
-
 const guatiqueFields = {
     name: {
         sequence: [
@@ -26,7 +24,7 @@ const guatiqueFields = {
     }
 };
 
-export const GuatiqueDriver = {
+export const GuatiqueSequence = {
     id: 'guatique',
     name: 'Guatique',
     sequence: [

@@ -1,5 +1,3 @@
-import { Driver } from '@lightning/typing';
-
 const clickFields = {
     name: {
         sequence: [
@@ -28,7 +26,7 @@ const clickFields = {
     }
 };
 
-export const ClickDriver = {
+export const ClickSequence = {
     id: 'click',
     name: 'Click Guatemala',
     sequence: [

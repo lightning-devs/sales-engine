@@ -1,5 +1,3 @@
-import { Driver } from '@lightning/typing';
-
 const rechFields = {
     name: {
         sequence: [
@@ -23,7 +21,7 @@ const rechFields = {
     }
 };
 
-export const RechDriver = {
+export const RechSequence = {
     id: 'rech',
     name: 'Rech',
     sequence: [

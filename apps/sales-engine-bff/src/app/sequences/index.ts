@@ -1,19 +1,21 @@
-import { GuatiqueDriver } from './guatique.driver';
-import { MacroSistemasDriver } from './macrosistemas.driver';
-import { KemikSequence } from './kemikSequence';
-import { RechDriver } from './rech.driver';
-import { SpiritDriver } from './spirit.driver';
-import { ClickDriver } from './click.driver';
-import { PacifikoDriver } from './pacifiko.driver';
+import { GuatiqueSequence } from './guatique.sequence';
+import { MacroSistemasSequence } from './macrosistemas.sequence';
+import { KemikSequence } from './kemik.sequence';
+import { RechSequence } from './rech.sequence';
+import { SpiritSequence } from './spirit.sequence';
+import { ClickSequence } from './click.sequence';
+import { PacifikoSequence } from './pacifiko.sequence';
+import { IntelafSequence } from './intelaf.sequence';
 
-const drivers = {
-    guatique: GuatiqueDriver,
-    macroSistemas: MacroSistemasDriver,
+const sequences = {
+    guatique: GuatiqueSequence,
+    macroSistemas: MacroSistemasSequence,
     kemik: KemikSequence,
-    rech: RechDriver,
-    spirit: SpiritDriver,
-    click: ClickDriver,
-    pacifiko: PacifikoDriver,
+    rech: RechSequence,
+    spirit: SpiritSequence,
+    click: ClickSequence,
+    pacifiko: PacifikoSequence,
+    intelaf: IntelafSequence,
 };
 
-export default drivers;
+export default sequences;

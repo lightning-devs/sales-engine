@@ -18,6 +18,15 @@ const allOrRelations = [...orRelations, ...orNegatedRelations];
 const allAndRelations = [...andNegatedRelations, ...andBooleanRelations];
 const paramProperties = ['to', 'this'];
 
+/*
+const logs = (func) => (...params) => {
+    console.log('===> logs params: ', params);
+    const val = func(...params);
+    console.log('===> logs returned values', params);
+    return val;
+}
+*/
+
 const getConditionalPredicate = (conditioners: Conditioner[], functionSeeker: FunctionSeeker) => {
     if (isEmpty(conditioners)) throw new Error('The "when" clause must have at least 1 conditioner.')
     const conditionersToCompose = conditioners.map((conditioner) => {
@@ -25,7 +34,7 @@ const getConditionalPredicate = (conditioners: Conditioner[], functionSeeker: Fu
         if (conditionerKeys.length > 2) throw new Error('There to many properties on the conditional case');
         if (conditionerKeys.length === 0) throw new Error('Some conditioners don\'t have the right amount of parameters');
         const [relation, value] = Object.entries(conditioner).find(([key]) => allRelations.includes(key));
-        const [, params = []] = Object.entries(conditioner).find(([key]) => paramProperties.includes(key));
+        const [, params = []] = Object.entries(conditioner).find(([key]) => paramProperties.includes(key)) || [];
         const functionToApply = functionSeeker(value as string) || (() => val => val);
         const partialFunction = isEmpty(params) ? functionToApply : functionToApply(...params);
         const shouldNegateBoolean = allNegatedRelations.includes(relation);
@@ -44,7 +53,7 @@ const getConditionalPredicate = (conditioners: Conditioner[], functionSeeker: Fu
             if (isOrRelation) nextBoolean = currentBoolean || actualBoolean;
             if (isAndRelation) nextBoolean = currentBoolean && actualBoolean;
             return { currentBoolean: nextBoolean, currentValue };
-        };
+        }
     }, []);
     return flow((currentValue) => ({ currentBoolean: false, currentValue }), ...conditionersToCompose);
 }

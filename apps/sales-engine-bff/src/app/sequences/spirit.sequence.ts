@@ -1,5 +1,3 @@
-import { Driver } from '@lightning/typing';
-
 const spiritFields = {
     name: {
         sequence: [
@@ -24,7 +22,7 @@ const spiritFields = {
     }
 };
 
-export const SpiritDriver = {
+export const SpiritSequence = {
     id: 'spirit',
     name: 'Spirit Computacion',
     sequence: [

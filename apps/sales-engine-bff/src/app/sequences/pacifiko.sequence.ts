@@ -1,5 +1,3 @@
-import { Driver } from '@lightning/typing';
-
 const pacifikoFields = {
     name: {
         sequence: [
@@ -24,7 +22,7 @@ const pacifikoFields = {
     }
 };
 
-export const PacifikoDriver = {
+export const PacifikoSequence = {
     id: 'pacifiko',
     name: 'Pacifiko',
     sequence: [

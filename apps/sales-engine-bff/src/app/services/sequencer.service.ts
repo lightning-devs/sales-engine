@@ -1,9 +1,18 @@
 import { Injectable, HttpService } from '@nestjs/common';
-import { getSequencer } from '@lightning/sequences';
-import fp from 'lodash/fp';
+import { getSequencer, getConditioner } from '@lightning/sequences';
 import { seFunctions } from '../utils/salesEngineFunctions';
+import fp from 'lodash/fp';
 import isEmpty from 'lodash/isEmpty';
-import { getConditioner } from '../../../../../libs/sequences/src/lib/conditioners';
+import isString from 'lodash/isString';
+import FormData from 'form-data';
+
+const JSON_TYPE = 'application/json';
+const FORM_DATA_TYPE = 'form-data';
+const HTTP_VERBS = {
+    POST: 'POST',
+    GET: 'GET',
+    PUT: 'PUT'
+};
 
 @Injectable()
 export class SequencerService {
@@ -14,17 +23,34 @@ export class SequencerService {
     }
 
     private getFetch() {
-        return (sequenceParams) => async (url) => {
-            const { method, headers, body } = sequenceParams;
+        return (sequenceParams) => (requestData) => {
+            const url = isString(requestData) ? requestData : requestData.url;
+            const { data = null } = requestData;
+            const { method, headers, contentType } = sequenceParams;
             const httpMethod = method.toLocaleLowerCase();
-            const params: any = [url];
-            if (body) {
-                params.push(body);
-            }
+            const params = {
+                url,
+                body: null,
+                config: {}
+            };
             if (headers) {
-                params.push(headers);
+                params.config['headers'] = headers;
             }
-            return await this.httpService[httpMethod](...params).toPromise();
+            if (!isEmpty(data)) {
+                if (contentType === JSON_TYPE) {
+                    params.body = JSON.stringify(data);
+                } else if (contentType === FORM_DATA_TYPE) {
+                    const formData = new FormData();
+                    Object.entries(data).forEach(([key, value]) => formData.append(key, `${value}`));
+                    params.body = formData;
+                    params.config['headers'] = { ...formData.getHeaders() }
+                }
+            }
+
+            if (method === HTTP_VERBS.GET) {
+                return this.httpService.get(params.url, params.config).toPromise();
+            }
+            return this.httpService[httpMethod](params.url, params.body, params.config).toPromise();
         }
     }
 

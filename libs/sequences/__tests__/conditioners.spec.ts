@@ -3,13 +3,14 @@ import { getConditioner } from '@lightning/sequences'
 const FALLBACK_RESULT = 'fallback';
 const OR_RESULT = 'the value is a price';
 const AND_IT_RESULT = 'AND_IT_RESULT';
+const NEGATED_AND_RESULT = 'and negated words';
 
 const cases: any = [
     {
         when: [
+            { it: 'isString' },
             { it: 'includes', to: [' '] }
         ],
-        // sequence
         returns: [
             { type: 'expression', apply: { using: 'split', params: [' '] } },
             { type: 'expression', apply: { using: 'first' } }
@@ -28,8 +29,16 @@ const cases: any = [
             { andIt: 'every', to: [String] },
             { andIt: 'includesEvery', to: ['Q. '] }
         ],
-        // sequence
         returns: AND_IT_RESULT
+    },
+    {
+        when: [
+            { isNot: 'isEmpty' },
+            { andIt: 'isNumber' },
+            { andIsNot: 'greaterThan', to: [100] }
+
+        ],
+        returns: NEGATED_AND_RESULT
     },
     {
         when: 'fallback',
@@ -40,14 +49,27 @@ const cases: any = [
 const includes = jest.requireActual('lodash/fp/includes');
 const isArray = (val) => Array.isArray(val);
 const every = jest.requireActual('lodash/fp/every');
+const isEmpty = val => !val;
+const isNumber = require('lodash/isNumber');
+const isString = jest.requireActual('lodash/isString');
 const includesEvery = val => arr => arr.every(item => item.includes(val));
+const greaterThan = compare => val => val > compare;
 
 describe('Conditioner Testing', () => {
 
     let conditioner;
 
     beforeAll(() => {
-        conditioner = getConditioner(...[{ includes, isArray, every, includesEvery }])({ cases });
+        conditioner = getConditioner({
+            includes,
+            isArray,
+            every,
+            includesEvery,
+            isEmpty,
+            greaterThan,
+            isNumber,
+            isString
+        })({ cases });
     });
 
     describe('Fallback test cases', () => {
@@ -89,8 +111,8 @@ describe('Conditioner Testing', () => {
             const notAPriceResult = conditioner(NOT_A_PRICE_STRING);
 
             expect(notAPriceResult.currentValue).not.toBe(OR_RESULT);
-        })
-    })
+        });
+    });
 
     describe('AND Test Cases', () => {
 
@@ -99,7 +121,18 @@ describe('Conditioner Testing', () => {
             const result = conditioner(INITIAL_VALUES);
 
             expect(result.currentValue).toBe(AND_IT_RESULT);
-        })
+        });
 
-    })
-})
+    });
+
+    describe('AND negated cases', () => {
+
+        it('Enters to AND NEGATED condition', () => {
+            const INITIAL_VALUES = 98;
+            const result = conditioner(INITIAL_VALUES);
+
+            expect(result.currentValue).toBe(NEGATED_AND_RESULT);
+        });
+
+    });
+});
