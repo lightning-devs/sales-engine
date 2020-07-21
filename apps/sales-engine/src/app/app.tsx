@@ -16,9 +16,11 @@ const theme = {
 
 export const App = () => {                                   
   return (
-    <Grommet theme={theme}>
-      <div>hola</div>
-    </Grommet>
+    <Provider store={store} >
+      <Grommet theme={theme}>
+        <div>hola</div>
+      </Grommet>
+    </Provider>
   );
 };
 
