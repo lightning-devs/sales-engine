@@ -9,16 +9,16 @@ export interface Store {
     sequence: Sequence[];
 }
 
-/* export interface Product {
+
+export interface Product {
     name: string;
     price: number;
     image: string;
     link: string;
-    fields?: Fields[];
 }
 
 export interface Fields {
     name: string,
     data: string,
     style: Map<string, string | number>;
-} */
+}

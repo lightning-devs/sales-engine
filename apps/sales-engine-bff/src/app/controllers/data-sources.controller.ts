@@ -3,14 +3,14 @@ import { DataSourcesService } from '../services/data-sources.service';
 
 import sequences from '../sequences/';
 
-@Controller('dataSources')
-export class DataSourcesController {
+@Controller('stores')
+export class StoresController {
 
     constructor(private sourcesService: DataSourcesService) {}
 
     @Get()
     getAllDataSources() {
-        return Object.values(sequences).map(({ id, name , logo, color }) => ({ id, name, logo, color }));
+        return Object.values(sequences).map(({ id, name, link, logo, color }) => ({ id, name, link, logo, color }));
     }
 
     @Get('search')

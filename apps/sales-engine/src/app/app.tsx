@@ -1,26 +1,19 @@
-import React from 'react';
-import { Grommet } from 'grommet';
-import { Provider } from 'react-redux';
-import store from './config/store.config';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { loadStores } from './features/stores.feature';
 import './app.scss';
 
-const theme = {
-  global: {
-    font: {
-      family: 'Roboto',
-      size: '18px',
-      height: '20px'
-    }
-  }
-}
 
-export const App = () => {                                   
+
+export const App = () => {             
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadStores());
+  }, []);
+
   return (
-    <Provider store={store} >
-      <Grommet theme={theme}>
-        <div>hola</div>
-      </Grommet>
-    </Provider>
+    <div>hola</div>
   );
 };
 
