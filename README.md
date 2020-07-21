@@ -48,6 +48,12 @@ ____
 
 1. Create a library: `nx g @nrwl/web library-name`
 
+``` bash
+
+npm install --save @lightning-devs/function-seeker@latest @lightning-devs/conditioners@latest @lightning-devs/sequences@latest
+
+```
+
 ## SalesSources
 
 [X] Kemik 

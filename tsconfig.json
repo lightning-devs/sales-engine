@@ -16,8 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@lightning/typing": ["libs/typing/src/index.ts"],
-      "@lightning/sequences": ["libs/sequences/src/index.ts"]
+      "@lightning/typing": ["libs/typing/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

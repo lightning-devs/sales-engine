@@ -194,32 +194,6 @@
           }
         }
       }
-    },
-    "sequences": {
-      "root": "libs/sequences",
-      "sourceRoot": "libs/sequences/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/sequences/tsconfig.lib.json",
-              "libs/sequences/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/sequences/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/sequences/jest.config.js",
-            "tsConfig": "libs/sequences/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        }
-      }
     }
   },
   "cli": {

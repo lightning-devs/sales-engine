@@ -1,5 +1,6 @@
 import { Injectable, HttpService } from '@nestjs/common';
-import { getSequencer, getConditioner } from '@lightning/sequences';
+import { getSequencer } from '@lightning-devs/sequences';
+import { getConditioner } from '@lightning-devs/conditioners';
 import { seFunctions } from '../utils/salesEngineFunctions';
 import fp from 'lodash/fp';
 import isEmpty from 'lodash/isEmpty';
@@ -59,7 +60,7 @@ export class SequencerService {
             fp,
             seFunctions,
         ]
-        const conditioner = getConditioner(...sourceFunctions);
+        const conditioner = getConditioner({ sources: sourceFunctions });
         sourceFunctions = [
             ...sourceFunctions,
             {

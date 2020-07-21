@@ -1,7 +1,7 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { DataSourcesService } from '../services/data-sources.service';
 
-import drivers from '../sequences/';
+import sequences from '../sequences/';
 
 @Controller('dataSources')
 export class DataSourcesController {
@@ -10,7 +10,7 @@ export class DataSourcesController {
 
     @Get()
     getAllDataSources() {
-        return Object.values(drivers);
+        return Object.values(sequences).map(({ id, name , logo, color }) => ({ id, name, logo, color }));
     }
 
     @Get('search')
